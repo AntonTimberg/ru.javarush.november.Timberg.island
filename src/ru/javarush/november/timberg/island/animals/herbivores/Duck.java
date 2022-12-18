@@ -1,0 +1,47 @@
+package ru.javarush.november.timberg.island.animals.herbivores;
+
+import ru.javarush.november.timberg.island.animals.Animals;
+import ru.javarush.november.timberg.island.animals.Herbivore;
+
+import java.util.Map;
+
+import static ru.javarush.november.timberg.island.field.Config.*;
+
+public class Duck extends Herbivore {
+    double weight = (double) Math.round((Math.random() * ((DUCK_WEIGHT - (DUCK_WEIGHT * MINIMUM_WEIGHT_INDEX) + 1)) + (DUCK_WEIGHT * MINIMUM_WEIGHT_INDEX)) * 100) / 100;
+
+    public double getMaxWeight() {
+        return DUCK_WEIGHT;
+    }
+
+    public double getMaxPopulation() {
+        return DUCK_MAX_POPULATION;
+    }
+
+    public double getMaxSpeed() {
+        return DUCK_MAX_SPEED;
+    }
+
+    public double getSaturation() {
+        return DUCK_SATURATION;
+    }
+
+    public String getUnicode() {
+        return DUCK_UNICODE;
+    }
+
+    @Override
+    public String toString() {
+        return "Duck " + getUnicode();
+    }
+
+    @Override
+    public double getCurrentWeight() {
+        return weight;
+    }
+
+    @Override
+    public Map<Animals, Integer> getEatingProbability() {
+        return DUCK_EATING_MAP;
+    }
+}
