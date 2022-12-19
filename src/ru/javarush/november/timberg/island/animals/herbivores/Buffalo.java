@@ -26,8 +26,8 @@ public class Buffalo extends Herbivore {
     }
 
     @Override
-    public double getSaturation() {
-        return BUFFALO_SATURATION;
+    public double getSatiety() {
+        return BUFFALO_SATIETY;
     }
 
     @Override
@@ -43,6 +43,11 @@ public class Buffalo extends Herbivore {
     @Override
     public double getCurrentWeight() {
         return weight;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

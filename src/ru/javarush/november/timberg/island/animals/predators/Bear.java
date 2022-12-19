@@ -23,8 +23,8 @@ public class Bear extends Predator {
         return Config.BEAR_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return Config.BEAR_SATURATION;
+    public double getSatiety() {
+        return Config.BEAR_SATIETY;
     }
 
     public String getUnicode() {
@@ -39,6 +39,10 @@ public class Bear extends Predator {
     @Override
     public double getCurrentWeight() {
         return weight;
+    }
+
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

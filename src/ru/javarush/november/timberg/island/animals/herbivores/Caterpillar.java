@@ -21,8 +21,8 @@ public class Caterpillar extends Herbivore {
         return CATERPILLAR_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return CATERPILLAR_SATURATION;
+    public double getSatiety() {
+        return CATERPILLAR_SATIETY;
     }
 
     public String getUnicode() {
@@ -37,6 +37,11 @@ public class Caterpillar extends Herbivore {
     @Override
     public double getCurrentWeight() {
         return CATERPILLAR_WEIGHT;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

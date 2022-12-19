@@ -23,8 +23,8 @@ public class Boa extends Predator {
         return Config.BOA_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return Config.BOA_SATURATION;
+    public double getSatiety() {
+        return Config.BOA_SATIETY;
     }
 
     public String getUnicode() {
@@ -39,6 +39,11 @@ public class Boa extends Predator {
     @Override
     public double getCurrentWeight() {
         return weight;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

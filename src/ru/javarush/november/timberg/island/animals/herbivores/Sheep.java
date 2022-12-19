@@ -23,8 +23,8 @@ public class Sheep extends Herbivore {
         return SHEEP_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return SHEEP_SATURATION;
+    public double getSatiety() {
+        return SHEEP_SATIETY;
     }
 
     public String getUnicode() {
@@ -39,6 +39,11 @@ public class Sheep extends Herbivore {
     @Override
     public double getCurrentWeight() {
         return weight;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

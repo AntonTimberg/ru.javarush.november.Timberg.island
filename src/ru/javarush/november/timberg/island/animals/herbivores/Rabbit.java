@@ -22,8 +22,8 @@ public class Rabbit extends Herbivore {
         return RABBIT_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return RABBIT_SATURATION;
+    public double getSatiety() {
+        return RABBIT_SATIETY;
     }
 
     public String getUnicode() {
@@ -38,6 +38,11 @@ public class Rabbit extends Herbivore {
     @Override
     public double getCurrentWeight() {
         return weight;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

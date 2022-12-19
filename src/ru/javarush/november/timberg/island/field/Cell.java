@@ -2,12 +2,11 @@ package ru.javarush.november.timberg.island.field;
 
 import ru.javarush.november.timberg.island.animals.Animal;
 import ru.javarush.november.timberg.island.animals.Animals;
+import ru.javarush.november.timberg.island.animals.Plants;
 import ru.javarush.november.timberg.island.animals.herbivores.*;
 import ru.javarush.november.timberg.island.animals.predators.*;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import static ru.javarush.november.timberg.island.field.Config.*;
 
@@ -88,39 +87,52 @@ public class Cell implements Runnable{
         }
     }
 
-    public void hunting(ArrayList<Object> cell){
-        for (Object o : cell) {
-            double currentSaturation = 0; // задали насыщение объекта за 0
-            CellObject animal = (CellObject) o; //привели типа
-            if (animal.getClass().equals(Plants.class)) continue;//если объект трава, то листаем дальше
-            Map<Animals,Integer> eatMap = animal.getEatingProbability(); //получили карту поедания
-            System.out.println();
-            for (Animals animals : eatMap.keySet()) { //двигаемся по ключам карты(зверям)
-                Class sacrClass = cellFill(animals).getClass(); //получаем класс жертвы
-
-                currentSaturation = currentSaturation + containsType(cell,sacrClass,eatMap,animals);
-
-                System.out.println(animal +" " +animal.getSaturation() + " " + currentSaturation);
-                if(animal.getSaturation() <= currentSaturation) break;
-
-
-                //System.out.print(animals + " ");
-            }
-
-        }
-    }
-
-    public <T> double containsType(ArrayList<Object> list, Class<T> type, Map<Animals, Integer> eatMap, Animals animals) {
-        for (Object o : list) {
-            if (type.isInstance(o)) {
-                int random = this.random.nextInt(100);
-                if (random >= eatMap.get(animals)) {
-                    double saturation = ((CellObject) o).getCurrentWeight();
-                    //list.remove(o);
-                    return saturation;
-                }
-            }
-        }
-        return 0;
-    }
+//    public void hunting(ArrayList<Object> cell){
+//        Iterator<Object> cellIterator = cell.iterator();
+//        while (cellIterator.hasNext()){
+//            //if(o == null) continue;
+//
+//            double currentSatiety = 0; // задали насыщение объекта за 0
+//            CellObject animal = (CellObject) cellIterator.next(); //привели типа
+//            if (animal.getClass().equals(Plants.class)) continue;//если объект трава, то листаем дальше
+//            Map<Animals,Integer> eatMap = animal.getEatingProbability(); //получили карту поедания
+//            System.out.println();
+//            for (Animals animals : eatMap.keySet()) { //двигаемся по ключам карты(зверям)
+//                Class sacrClass = cellFill(animals).getClass(); //получаем класс жертвы
+//                Map<Object,Double> newMap = containsType(cell,sacrClass,eatMap,animals);
+//                if (newMap.keySet() != null) currentSatiety = currentSatiety + newMap.get(newMap.keySet());
+//                //this.cell.remove(sacrClass.);
+//                System.out.println(animal +" " +animal.getSatiety() + " " + currentSatiety);
+//                if(animal.getSatiety() <= currentSatiety) break;
+//
+//
+//                //System.out.print(animals + " ");
+//            }
+//            if (animal.getSatiety() > currentSatiety) animal.setCurrentWeight(animal.getCurrentWeight() * 0.9); //если не наелся, отнимаем 10% текущего веса
+//            else if (animal.getCurrentWeight() < animal.getMaxWeight()) animal.setCurrentWeight(animal.getCurrentWeight() + (animal.getCurrentWeight())*0.1); //если наелся, прибавляем 10% текущего веса
+//        }
+//
+//    }
+//
+//    public <T> Map<Object,Double> containsType(ArrayList<Object> list, Class<T> type, Map<Animals, Integer> eatMap, Animals animals) {
+//        Map<Object,Double> resultMap = new HashMap<>();
+//        Iterator<Object> cellIterator = list.iterator();
+//        while (cellIterator.hasNext()){
+//            Object object = cellIterator.next();
+//            //if (o == null) continue;
+//            if (type.isInstance(object)) {
+//                int random = this.random.nextInt(100);
+//                if (random <= eatMap.get(animals)) {
+//                    double satiety = ((CellObject) object).getCurrentWeight();
+//
+//                    resultMap.put(object,satiety);
+//                    //this.cell.remove(object);
+//                    //cellIterator.remove();
+//                    return resultMap;
+//                }
+//            }
+//        }
+//        resultMap.put(null,0.0);
+//        return resultMap;
+//    }
 }

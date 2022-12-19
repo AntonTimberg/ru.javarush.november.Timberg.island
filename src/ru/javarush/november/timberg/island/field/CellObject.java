@@ -11,11 +11,13 @@ public interface CellObject {
 
     public double getMaxSpeed();
 
-    public double getSaturation();
+    public double getSatiety();
 
     public String getUnicode();
 
     public double getCurrentWeight();
+
+    public void setCurrentWeight(double weight);
 
     public Map<Animals, Integer> getEatingProbability();
 }

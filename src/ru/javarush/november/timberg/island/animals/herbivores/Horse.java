@@ -22,8 +22,8 @@ public class Horse extends Herbivore {
         return HORSE_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return HORSE_SATURATION;
+    public double getSatiety() {
+        return HORSE_SATIETY;
     }
 
     public String getUnicode() {
@@ -38,6 +38,11 @@ public class Horse extends Herbivore {
     @Override
     public double getCurrentWeight() {
         return weight;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

@@ -22,8 +22,8 @@ public class Eagle extends Predator {
         return EAGLE_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return EAGLE_SATURATION;
+    public double getSatiety() {
+        return EAGLE_SATIETY;
     }
 
     public String getUnicode() {
@@ -38,6 +38,11 @@ public class Eagle extends Predator {
     @Override
     public double getCurrentWeight() {
         return weight;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

@@ -22,8 +22,8 @@ public class Fox extends Predator {
         return FOX_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return FOX_SATURATION;
+    public double getSatiety() {
+        return FOX_SATIETY;
     }
 
     public String getUnicode() {
@@ -38,6 +38,11 @@ public class Fox extends Predator {
     @Override
     public double getCurrentWeight() {
         return weight;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

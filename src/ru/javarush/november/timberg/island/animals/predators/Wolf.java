@@ -23,8 +23,8 @@ public class Wolf extends Predator {
         return Config.WOLF_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return Config.WOLF_SATURATION;
+    public double getSatiety() {
+        return Config.WOLF_SATIETY;
     }
 
     public String getUnicode() {
@@ -40,6 +40,12 @@ public class Wolf extends Predator {
     public double getCurrentWeight() {
         return weight;
     }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
+    }
+
 
     @Override
     public Map<Animals, Integer> getEatingProbability() {

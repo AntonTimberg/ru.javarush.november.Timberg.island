@@ -5,7 +5,6 @@ import ru.javarush.november.timberg.island.animals.Herbivore;
 
 import java.util.Map;
 
-import static ru.javarush.november.timberg.island.animals.Animals.PLANTS;
 import static ru.javarush.november.timberg.island.field.Config.*;
 
 public class Deer extends Herbivore {
@@ -23,8 +22,8 @@ public class Deer extends Herbivore {
         return DEER_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return DEER_SATURATION;
+    public double getSatiety() {
+        return DEER_SATIETY;
     }
 
     public String getUnicode() {
@@ -39,6 +38,11 @@ public class Deer extends Herbivore {
     @Override
     public double getCurrentWeight() {
         return weight;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

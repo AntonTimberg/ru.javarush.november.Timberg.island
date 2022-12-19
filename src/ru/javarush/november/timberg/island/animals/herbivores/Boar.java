@@ -27,8 +27,8 @@ public class Boar extends Herbivore {
     }
 
     @Override
-    public double getSaturation() {
-        return BOAR_SATURATION;
+    public double getSatiety() {
+        return BOAR_SATIETY;
     }
 
     @Override
@@ -44,6 +44,11 @@ public class Boar extends Herbivore {
     @Override
     public double getCurrentWeight() {
         return this.weight;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

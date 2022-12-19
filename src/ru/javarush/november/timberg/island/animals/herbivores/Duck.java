@@ -22,8 +22,8 @@ public class Duck extends Herbivore {
         return DUCK_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return DUCK_SATURATION;
+    public double getSatiety() {
+        return DUCK_SATIETY;
     }
 
     public String getUnicode() {
@@ -38,6 +38,11 @@ public class Duck extends Herbivore {
     @Override
     public double getCurrentWeight() {
         return weight;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

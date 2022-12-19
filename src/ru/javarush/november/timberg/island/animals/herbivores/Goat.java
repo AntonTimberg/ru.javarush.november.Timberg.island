@@ -22,8 +22,8 @@ public class Goat extends Herbivore {
         return GOAT_MAX_SPEED;
     }
 
-    public double getSaturation() {
-        return GOAT_SATURATION;
+    public double getSatiety() {
+        return GOAT_SATIETY;
     }
 
     public String getUnicode() {
@@ -38,6 +38,11 @@ public class Goat extends Herbivore {
     @Override
     public double getCurrentWeight() {
         return weight;
+    }
+
+    @Override
+    public void setCurrentWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override
