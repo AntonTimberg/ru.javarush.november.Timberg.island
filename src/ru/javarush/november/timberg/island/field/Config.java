@@ -11,7 +11,7 @@ public class Config {
     public static final int ISLE_WIDTH = 1;
     public static final int TRY_HUNTING_COUNT = 5;
 
-    public static final double POPULATION_RATE = 0.05; // 1 - при обычных (100%) значениях популяции животных и растений
+    public static final double POPULATION_RATE = 0.1; // 1 - при обычных (100%) значениях популяции животных и растений
     public static final double MINIMUM_WEIGHT_INDEX = 0.55; // если индекс ниже, то смерть объекта
 
     public static final double BOAR_WEIGHT = 400;
