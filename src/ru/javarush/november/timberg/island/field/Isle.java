@@ -1,6 +1,7 @@
 package ru.javarush.november.timberg.island.field;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Random;
 
 import static java.lang.System.out;
 
@@ -9,10 +10,11 @@ public class Isle {
     //ExecutorService cringeService = Executors.newCachedThreadPool();
     Cell cell = new Cell();
     Random random = new Random();
-    public void isle_Creation(){
+
+    public void isle_Creation() {
         for (int i = 0; i < MY_ISLE.length; i++) {
             for (int j = 0; j < MY_ISLE[i].length; j++) {
-               // MY_ISLE[i][j] = cringeService.submit(cell);
+                // MY_ISLE[i][j] = cringeService.submit(cell);
                 MY_ISLE[i][j] = new Cell();
                 MY_ISLE[i][j].createCell();
             }
@@ -26,25 +28,28 @@ public class Isle {
                 '}';
     }
 
-    public void isleWorking(){
-    int x = 0;
-    int y = 0;
+    public void isleWorking() {
+        int x = 0;
+        int y = 0;
         out.println();
-            for (Cell[] cells : this.MY_ISLE) {
-                y++;
-                for (Cell cell3 : cells) {
-                    x++;
-                    out.print("Ячейка острова- " + y+" "+x+":  ");
-                    for (Object object : cell3.getCell()) {
-                        CellObject currentObject = (CellObject) object;
-                        out.print(currentObject.toString());
-                        out.print(":весом " + currentObject.getCurrentWeight() + " кг.  ");
-                    }
-                    out.println();
-                    cell3.hunting(cell3);
-                    cell3.weightChecker(cell3);
+        for (Cell[] cells : this.MY_ISLE) {
+            y++;
+            for (Cell cell3 : cells) {
+                x++;
+                out.println();
+                out.print("Ячейка острова- " + y + " " + x + ":  ");
+                for (Object object : cell3.getCell()) {
+                    CellObject currentObject = (CellObject) object;
+                    out.print(currentObject.toString());
+                    out.print(":весом " + ((double) (Math.round(currentObject.getCurrentWeight() * 100)) / 100) + " кг.  ");
                 }
+                //out.println();
+                cell3.hunting(cell3);
+                cell3.weightChecker(cell3);
+                cell3.reproduction(cell3);
+                cell3.grassGrowth(cell3);
             }
         }
+    }
 
 }
