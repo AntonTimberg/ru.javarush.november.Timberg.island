@@ -29,6 +29,7 @@ public class Isle {
     public void isleWorking(){
     int x = 0;
     int y = 0;
+        out.println();
             for (Cell[] cells : this.MY_ISLE) {
                 y++;
                 for (Cell cell3 : cells) {

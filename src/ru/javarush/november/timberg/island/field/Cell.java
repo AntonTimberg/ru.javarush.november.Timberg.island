@@ -62,6 +62,7 @@ public class Cell implements Runnable{
             for (Animals animals : eatMap.keySet()) {
                 Class sacrClass = cellFill(animals).getClass();
                 if(animal.getSatiety() <= currentSatiety) break;
+
                 currentSatiety = currentSatiety + killFirst(cellList,sacrClass,eatMap,animals);
 
             }
@@ -79,6 +80,7 @@ public class Cell implements Runnable{
                 if (random <= eatMap.get(animal)) {
                     satiety = ((CellObject) o).getCurrentWeight();
                     this.cell.remove(o);
+                    System.out.print(cellFill(animal).toString() + " умерщвлён  ");
                 }
             }
         }
@@ -86,10 +88,12 @@ public class Cell implements Runnable{
     }
     
     public void weightChecker(Cell cell){
+        System.out.println();
         ArrayList<Object> cellList = new ArrayList<>(cell.getCell());
         for (Object object : cellList) {
             CellObject animal = (CellObject) object;
-            if(animal.getCurrentWeight() <= (animal.getMaxWeight()*0.55)) this.cell.remove(object);
+            if(animal.getCurrentWeight() <= (animal.getMaxWeight()*0.55)) {this.cell.remove(object);
+                System.out.print(object.toString() + " умер от потери веса ");}
         }
     }
 
