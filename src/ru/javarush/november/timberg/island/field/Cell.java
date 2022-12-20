@@ -151,7 +151,7 @@ public class Cell implements Runnable {
         }
 
         if (count < plants.getMaxPopulation()) {
-            for (int i = 0; i < (plants.getMaxPopulation() / random.nextInt(5)); i++) {
+            for (int i = 0; i < (plants.getMaxPopulation() * POPULATION_RATE); i++) {
                 this.cell.add(new Plants());
             }
         }
