@@ -12,12 +12,11 @@ public class Main {
         Cell cell = new Cell();
 
         while (true) {
+            System.out.println("|||||NEW CYCLE|||||");
             isle.isleWorking();
             System.out.println();
-
+            isle.movement();
             TimeUnit.MILLISECONDS.sleep(4000);
         }
-
-
     }
 }

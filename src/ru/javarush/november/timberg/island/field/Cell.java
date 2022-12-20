@@ -59,7 +59,6 @@ public class Cell implements Runnable {
 
         for (Object object : cellList) {
             CellObject animal = (CellObject) object;
-            //double weightCheck =  animal.getCurrentWeight();
             double currentSatiety = 0;
 
             if (animal.getClass().equals(Plants.class)) continue;
@@ -107,7 +106,7 @@ public class Cell implements Runnable {
         }
     }
 
-    public void reproduction(Cell cell){
+    public void reproduction(Cell cell) {
         System.out.println();
         ArrayList<Object> cellList = new ArrayList<>(cell.getCell());
         ArrayList<Class> classArray = new ArrayList<>();
@@ -130,16 +129,17 @@ public class Cell implements Runnable {
         }
     }
 
-    void innerReproduction(Class oClass){
+    void innerReproduction(Class oClass) {
         for (Animals animals : ANIMALS_ENUM) {
             Object currentObject = cellFill(animals);
-            if (oClass.equals(currentObject.getClass())) {this.cell.add(currentObject);
+            if (oClass.equals(currentObject.getClass())) {
+                this.cell.add(currentObject);
                 System.out.print("родился " + currentObject + " ");
             }
         }
     }
 
-    public void grassGrowth(Cell cell){
+    public void grassGrowth(Cell cell) {
         ArrayList<Object> cellList = new ArrayList<>(cell.getCell());
         Plants plants = new Plants();
         int count = 0;
@@ -150,7 +150,7 @@ public class Cell implements Runnable {
             if (oClass.equals(Plants.class)) count++;
         }
 
-        if (count < plants.getMaxPopulation()){
+        if (count < plants.getMaxPopulation()) {
             for (int i = 0; i < (plants.getMaxPopulation() / random.nextInt(5)); i++) {
                 this.cell.add(new Plants());
             }
