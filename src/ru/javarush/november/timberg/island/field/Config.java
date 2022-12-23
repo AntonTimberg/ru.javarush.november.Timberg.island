@@ -1,18 +1,26 @@
 package ru.javarush.november.timberg.island.field;
 
-import ru.javarush.november.timberg.island.animals.Animals;
+import ru.javarush.november.timberg.island.living_objects.animals.Animals;
 
 import java.util.Map;
 
-import static ru.javarush.november.timberg.island.animals.Animals.*;
+import static ru.javarush.november.timberg.island.living_objects.animals.Animals.*;
 
-public class Config {
-    public static final int ISLE_LENGTH = 100;
-    public static final int ISLE_WIDTH = 20;
-    public static final int TRY_HUNTING_COUNT = 15;
+ public class Config {
+    public static final int ISLE_LENGTH = 2;
+    public static final int ISLE_WIDTH = 2;
+
+    //
 
     public static final double POPULATION_RATE = 1; // 1 - при обычных (100%) значениях популяции животных и растений
+
+    //
+
     public static final double MINIMUM_WEIGHT_INDEX = 0.55; // если индекс ниже, то смерть объекта
+    public static final double WEIGHT_CHANGE_INDEX = 0.1;
+    public static final double WEIGHT_INDEX_REPRODUCTION = 0.8;
+
+    //
 
     public static final double BOAR_WEIGHT = 400;
     public static final double BOAR_MAX_POPULATION = 50;

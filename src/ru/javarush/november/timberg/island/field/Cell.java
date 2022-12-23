@@ -1,52 +1,43 @@
 package ru.javarush.november.timberg.island.field;
 
-import ru.javarush.november.timberg.island.animals.Animal;
-import ru.javarush.november.timberg.island.animals.Animals;
-import ru.javarush.november.timberg.island.animals.Plants;
-import ru.javarush.november.timberg.island.animals.herbivores.*;
-import ru.javarush.november.timberg.island.animals.predators.*;
+import ru.javarush.november.timberg.island.living_objects.animals.Animal;
+import ru.javarush.november.timberg.island.living_objects.animals.Animals;
+import ru.javarush.november.timberg.island.living_objects.CellObject;
+import ru.javarush.november.timberg.island.living_objects.Plants;
+import ru.javarush.november.timberg.island.living_objects.animals.herbivores.*;
+import ru.javarush.november.timberg.island.living_objects.animals.predators.*;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 
-import static ru.javarush.november.timberg.island.field.Config.PLANTS_MAX_POPULATION;
-import static ru.javarush.november.timberg.island.field.Config.POPULATION_RATE;
+import static java.lang.System.*;
+import static ru.javarush.november.timberg.island.field.Config.*;
+import static ru.javarush.november.timberg.island.field.Isle.MY_ISLE;
 
 public class Cell implements Runnable {
-    public ArrayList<Object> cell = new ArrayList<>();
-    public static final Animals[] ANIMALS_ENUM = Animals.values();
-    Random random = new Random();
+    protected ArrayList<CellObject> cell = new ArrayList<>();
+    protected static final Animals[] ANIMALS_ENUM = Animals.values();
+    Random randomNumber = new Random();
 
     public void createCell() {
         for (int i = 0; i < ANIMALS_ENUM.length - 1; i++) {
-            Animal x = (Animal) cellFill(ANIMALS_ENUM[i]);
-            int maxCount = (int) (((int) x.getMaxPopulation()) * POPULATION_RATE);
-            int random = (int) (Math.random() * ++maxCount);
+            Animal animal = (Animal) cellFill(ANIMALS_ENUM[i]);
+            int maxCount = (int) (((int) animal.getMaxPopulation()) * POPULATION_RATE);
+            int random = randomNumber.nextInt(maxCount);
             for (int j = 0; j < random; j++) {
                 this.cell.add(cellFill(ANIMALS_ENUM[i]));
             }
         }
 
-        int maxCount = (int) (Math.random() * (int) ((PLANTS_MAX_POPULATION + 1) * POPULATION_RATE));
+        int maxCount = randomNumber.nextInt((int) ((PLANTS_MAX_POPULATION + 1) * POPULATION_RATE));
         for (int i = 0; i < maxCount; i++) {
             this.cell.add(cellFill(ANIMALS_ENUM[ANIMALS_ENUM.length - 1]));
         }
     }
 
-    public void removeAnimal(Object animal) {
-        this.cell.remove(animal);
-    }
-
-    public ArrayList<Object> getCell() {
+    public ArrayList<CellObject> getCell() {
         return cell;
-    }
-
-    @Override
-    public String toString() {
-        return "Cell{" +
-                "cell=" + cell +
-                '}';
     }
 
     @Override
@@ -55,39 +46,35 @@ public class Cell implements Runnable {
     }
 
     public void hunting(Cell cell) {
-        ArrayList<Object> cellList = new ArrayList<>(cell.getCell());
-
-        for (Object object : cellList) {
-            CellObject animal = (CellObject) object;
+        ArrayList<CellObject> cellList = new ArrayList<>(cell.getCell());
+        for (CellObject animal : cellList) {
             double currentSatiety = 0;
 
             if (animal.getClass().equals(Plants.class)) continue;
             Map<Animals, Integer> eatMap = animal.getEatingProbability();
 
             for (Animals animals : eatMap.keySet()) {
-                Class sacrClass = cellFill(animals).getClass();
+                Class victimClass = cellFill(animals).getClass();
                 if (animal.getSatiety() <= currentSatiety) break;
 
-                currentSatiety = currentSatiety + killFirst(cellList, sacrClass, eatMap, animals);
+                currentSatiety = currentSatiety + killObject(cellList, victimClass, eatMap, animals);
 
             }
-
             if (animal.getSatiety() > currentSatiety)
-                animal.setCurrentWeight((animal.getCurrentWeight() * 0.9)); //если не наелся, отнимаем 10% текущего веса
+                animal.setCurrentWeight((animal.getCurrentWeight() - animal.getCurrentWeight() * WEIGHT_CHANGE_INDEX));
             else if (animal.getCurrentWeight() < animal.getMaxWeight())
-                animal.setCurrentWeight((animal.getCurrentWeight() + (animal.getCurrentWeight()) * 0.1)); //если наелся, прибавляем 10% текущего веса
+                animal.setCurrentWeight((animal.getCurrentWeight() + animal.getCurrentWeight() * WEIGHT_CHANGE_INDEX));
         }
     }
 
-    <T> double killFirst(ArrayList<Object> cellList, Class<T> type, Map<Animals, Integer> eatMap, Animals animal) {
+    <T> double killObject(ArrayList<CellObject> cellList, Class<T> type, Map<Animals, Integer> eatMap, Animals animal) {
         double satiety = 0;
-        for (Object o : cellList) {
-            if (o.getClass().equals(type)) {
-                int random = this.random.nextInt(100);
+        for (CellObject currentAnimal : cellList) {
+            if (currentAnimal.getClass().equals(type)) {
+                int random = this.randomNumber.nextInt(100);
                 if (random <= eatMap.get(animal)) {
-                    satiety = ((CellObject) o).getCurrentWeight();
-                    this.cell.remove(o);
-                    //System.out.print(cellFill(animal).toString() + " умерщвлён  ");
+                    satiety = (currentAnimal).getCurrentWeight();
+                    this.cell.remove(currentAnimal);
                 }
             }
         }
@@ -95,59 +82,51 @@ public class Cell implements Runnable {
     }
 
     public void weightChecker(Cell cell) {
-        System.out.println();
-        ArrayList<Object> cellList = new ArrayList<>(cell.getCell());
-        for (Object object : cellList) {
-            CellObject animal = (CellObject) object;
-            if (animal.getCurrentWeight() <= (animal.getMaxWeight() * 0.5)) {
-                this.cell.remove(object);
-                System.out.print(object.toString() + " умер от потери веса ");
+        ArrayList<CellObject> cellList = new ArrayList<>(cell.getCell());
+        for (CellObject animal : cellList) {
+            if (animal.getCurrentWeight() <= (animal.getMaxWeight() * MINIMUM_WEIGHT_INDEX)) {
+                this.cell.remove(animal);
             }
         }
     }
 
     public void reproduction(Cell cell) {
-        System.out.println();
-        ArrayList<Object> cellList = new ArrayList<>(cell.getCell());
+        ArrayList<CellObject> cellList = new ArrayList<>(cell.getCell());
         ArrayList<Class> classArray = new ArrayList<>();
-        for (Object o : cellList) { // перебор пушистых
-            Class oClass = o.getClass();
-            if (oClass.equals(Plants.class)) continue;
-            classArray.add(oClass);
+        for (Object animal : cellList) {
+            Class clazz = animal.getClass();
+            if (clazz.equals(Plants.class)) continue;
+            classArray.add(clazz);
         }
 
-        for (Object o : cellList) {
-            int count = 0;
-            CellObject animal = (CellObject) o;
-            Class oClass = o.getClass();
-            if (oClass.equals(Plants.class)) continue;
-            count = (int) classArray.stream().filter(oClass::equals).count();
-            //System.out.println(count);
-            if ((count < animal.getMaxPopulation()) && (count >= 2) && (animal.getCurrentWeight() > (animal.getMaxWeight() * 0.8))) {
-                innerReproduction(oClass);
+        for (CellObject animal : cellList) {
+            int count;
+            Class clazz = animal.getClass();
+            if (clazz.equals(Plants.class)) continue;
+            count = (int) classArray.stream().filter(clazz::equals).count();
+            if ((count < animal.getMaxPopulation()) && (count >= 2) && (animal.getCurrentWeight() > (animal.getMaxWeight() * WEIGHT_INDEX_REPRODUCTION))) {
+                innerReproduction(clazz);
             }
         }
     }
 
-    void innerReproduction(Class oClass) {
-        for (Animals animals : ANIMALS_ENUM) {
-            Object currentObject = cellFill(animals);
-            if (oClass.equals(currentObject.getClass())) {
+    void innerReproduction(Class clazz) {
+        for (Animals animal : ANIMALS_ENUM) {
+            CellObject currentObject = cellFill(animal);
+            if (clazz.equals(currentObject.getClass())) {
                 this.cell.add(currentObject);
-                System.out.print("родился " + currentObject + " ");
             }
         }
     }
 
     public void grassGrowth(Cell cell) {
-        ArrayList<Object> cellList = new ArrayList<>(cell.getCell());
+        ArrayList<CellObject> cellList = new ArrayList<>(cell.getCell());
         Plants plants = new Plants();
         int count = 0;
 
-        for (Object o : cellList) {
-            CellObject animal = (CellObject) o;
-            Class oClass = o.getClass();
-            if (oClass.equals(Plants.class)) count++;
+        for (CellObject animal : cellList) {
+            Class clazz = animal.getClass();
+            if (clazz.equals(Plants.class)) count++;
         }
 
         if (count < plants.getMaxPopulation()) {
@@ -157,7 +136,45 @@ public class Cell implements Runnable {
         }
     }
 
-    public Object cellFill(Animals animal) { //Object, что-бы не добавлять растения к Animal
+    public void animalMove(int y, int x){
+        ArrayList<CellObject> cellList = new ArrayList<>(MY_ISLE[y][x].getCell());
+        int movementSpeed;
+        for (CellObject animal : cellList) {
+            movementSpeed = (int) animal.getMaxSpeed();
+            chooseDirection(movementSpeed,y,x,animal);
+        }
+    }
+
+    void chooseDirection(int movementSpeed, int i, int j, CellObject animal){
+        int moveSpeed = 0;
+        if (movementSpeed > 0) moveSpeed = Math.abs(randomNumber.nextInt(movementSpeed));
+
+        int direction = Math.abs(randomNumber.nextInt(4));
+
+        if (moveSpeed > 0){
+            if (direction == 1 && MY_ISLE[i].length > j + moveSpeed ) {
+                MY_ISLE[i][j].getCell().remove(animal);
+                MY_ISLE[i][j + moveSpeed].getCell().add(animal);
+            }
+
+            if (direction == 2 && i - moveSpeed > 0) {
+                MY_ISLE[i][j].getCell().remove(animal);
+                MY_ISLE[i - moveSpeed][j].getCell().add(animal);
+            }
+
+            if (direction == 3 && j - moveSpeed > 0) {
+                MY_ISLE[i][j].getCell().remove(animal);
+                MY_ISLE[i][j - moveSpeed].getCell().add(animal);
+            }
+
+            if (direction == 4 && MY_ISLE.length > i + moveSpeed ) {
+                MY_ISLE[i][j].getCell().remove(animal);
+                MY_ISLE[i + moveSpeed][j].getCell().add(animal);
+            }
+        }
+    }
+
+    public CellObject cellFill(Animals animal) {
         switch (animal) {
             case WOLF:
                 return new Wolf();
@@ -195,5 +212,12 @@ public class Cell implements Runnable {
             default:
                 throw new IllegalStateException("Invalid animal: " + animal);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "cell=" + cell.toString() +
+                '}';
     }
 }
