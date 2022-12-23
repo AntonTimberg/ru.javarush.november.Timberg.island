@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 
-import static java.lang.System.*;
 import static ru.javarush.november.timberg.island.field.Config.*;
 import static ru.javarush.november.timberg.island.field.Isle.MY_ISLE;
 
@@ -93,6 +92,7 @@ public class Cell implements Runnable {
     public void reproduction(Cell cell) {
         ArrayList<CellObject> cellList = new ArrayList<>(cell.getCell());
         ArrayList<Class> classArray = new ArrayList<>();
+
         for (Object animal : cellList) {
             Class clazz = animal.getClass();
             if (clazz.equals(Plants.class)) continue;
@@ -130,7 +130,7 @@ public class Cell implements Runnable {
         }
 
         if (count < plants.getMaxPopulation()) {
-            for (int i = 0; i < (plants.getMaxPopulation() * POPULATION_RATE); i++) {
+            for (int i = 0; i < (randomNumber.nextInt((int) plants.getMaxPopulation()) * POPULATION_RATE); i++) {
                 this.cell.add(new Plants());
             }
         }

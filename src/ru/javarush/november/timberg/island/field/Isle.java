@@ -4,7 +4,7 @@ import static java.lang.System.out;
 
 public class Isle {
     public static final Cell[][] MY_ISLE = new Cell[Config.ISLE_WIDTH][Config.ISLE_LENGTH];
-
+    ShowInfo showInfo = new ShowInfo();
     public void isleCreation() {
         for (int i = 0; i < MY_ISLE.length; i++) {
             for (int j = 0; j < MY_ISLE[i].length; j++) {
@@ -17,7 +17,9 @@ public class Isle {
     public void monitor() {
         for (int i = 0; i < MY_ISLE.length; i++) {
             for (int j = 0; j < MY_ISLE[i].length; j++) {
-                out.println(i + "/" + j + " {" + MY_ISLE[i][j].getCell().toString() + "}");
+                out.print((i+1) + "/" + (j+1) + " { " );
+                showInfo.printCellInfo(MY_ISLE[i][j].getCell());
+                out.println("}");
             }
         }
     }

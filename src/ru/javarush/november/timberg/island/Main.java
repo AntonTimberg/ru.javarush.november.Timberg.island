@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         Isle isle = new Isle();
         isle.isleCreation();
+        isle.monitor();
 
         while (true) {
             out.println("|||||NEW CYCLE|||||");
