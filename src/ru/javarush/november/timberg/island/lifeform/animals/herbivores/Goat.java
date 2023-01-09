@@ -22,6 +22,11 @@ public class Goat extends Animal {
     }
 
     @Override
+    public int getMaxPopulation() {
+        return GOAT_MAX_POPULATION;
+    }
+
+    @Override
     public String getUnicode() {
         return GOAT_UNICODE;
     }

@@ -9,6 +9,8 @@ public interface Organism {
 
     double getMaxWeight();
 
+    int getMaxPopulation();
+
     String getUnicode();
 
     State getState();

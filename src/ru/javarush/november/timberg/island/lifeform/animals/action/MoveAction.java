@@ -6,10 +6,7 @@ import ru.javarush.november.timberg.island.lifeform.animals.behavior.CanMove;
 import ru.javarush.november.timberg.island.lifeform.animals.herbivores.Caterpillar;
 import ru.javarush.november.timberg.island.utils.Randomizer;
 
-import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class MoveAction implements Action {
     private final CanMove targetAnimal;
@@ -28,8 +25,7 @@ public class MoveAction implements Action {
             var fromCell = currentCell;
             var toCell = currentCell;
 
-            AtomicInteger i = new AtomicInteger(0);
-            for (i.get(); i.get() < maxSpeed; i.getAndIncrement()) {
+            for (int i = 0; i < maxSpeed; i++) {
                 var nearestCells = fromCell.getNearestCells();
                 var targetCellIdx = Randomizer.getRandom(0,nearestCells.size());
 
@@ -37,7 +33,6 @@ public class MoveAction implements Action {
                 fromCell = toCell;
             }
 
-            // check current != toCell
             if (toCell != currentCell) {
                 currentCell.markDead(Set.of((Animal) targetAnimal));
             }

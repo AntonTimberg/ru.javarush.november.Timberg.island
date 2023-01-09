@@ -32,7 +32,7 @@ public class EatAction implements Action {
                 })
                 .collect(Collectors.toList());
 
-        List<Organism> victims = targetAnimal.eat(food,targetAnimal);
+        List<Organism> victims = ((Animal) targetAnimal).eat(food,targetAnimal);
         currentCell.markDead(new HashSet<>(victims));
     }
 }

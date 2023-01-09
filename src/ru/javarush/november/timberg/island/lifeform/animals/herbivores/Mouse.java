@@ -22,6 +22,11 @@ public class Mouse extends Animal {
     }
 
     @Override
+    public int getMaxPopulation() {
+        return MOUSE_MAX_POPULATION;
+    }
+
+    @Override
     public String getUnicode() {
         return MOUSE_UNICODE;
     }

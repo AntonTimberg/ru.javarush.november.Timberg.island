@@ -15,7 +15,7 @@ public class Plant implements Organism {
     }
 
 
-    public double getMaxPopulation() {
+    public int getMaxPopulation() {
         return BoardSetting.PLANTS_MAX_POPULATION;
     }
 

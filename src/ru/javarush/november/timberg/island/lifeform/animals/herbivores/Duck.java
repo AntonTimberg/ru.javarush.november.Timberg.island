@@ -40,4 +40,9 @@ public class Duck extends Animal {
     public int getMaxSpeed() {
         return DUCK_MAX_SPEED;
     }
+
+    @Override
+    public int getMaxPopulation() {
+        return DUCK_MAX_POPULATION;
+    }
 }

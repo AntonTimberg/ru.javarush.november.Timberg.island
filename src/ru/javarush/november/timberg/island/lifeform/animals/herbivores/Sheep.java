@@ -22,6 +22,11 @@ public class Sheep extends Animal {
     }
 
     @Override
+    public int getMaxPopulation() {
+        return SHEEP_MAX_POPULATION;
+    }
+
+    @Override
     public String getUnicode() {
         return SHEEP_UNICODE;
     }

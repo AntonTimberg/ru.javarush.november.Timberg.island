@@ -25,6 +25,11 @@ public class Eagle extends Animal {
     }
 
     @Override
+    public int getMaxPopulation() {
+        return EAGLE_MAX_POPULATION;
+    }
+
+    @Override
     public String getUnicode() {
         return EAGLE_UNICODE;
     }

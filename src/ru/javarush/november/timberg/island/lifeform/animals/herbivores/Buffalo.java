@@ -40,4 +40,9 @@ public class Buffalo extends Animal {
     public int getMaxSpeed() {
         return BUFFALO_MAX_SPEED;
     }
+
+    @Override
+    public int getMaxPopulation() {
+        return BUFFALO_MAX_POPULATION;
+    }
 }

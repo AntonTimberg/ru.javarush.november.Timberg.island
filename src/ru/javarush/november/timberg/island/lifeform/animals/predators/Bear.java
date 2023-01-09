@@ -23,6 +23,11 @@ public class Bear extends Animal {
     }
 
     @Override
+    public int getMaxPopulation() {
+        return BEAR_MAX_POPULATION;
+    }
+
+    @Override
     public String getUnicode() {
         return BEAR_UNICODE;
     }

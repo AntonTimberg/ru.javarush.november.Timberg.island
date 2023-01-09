@@ -7,38 +7,15 @@ import ru.javarush.november.timberg.island.lifeform.animals.Animal;
 import ru.javarush.november.timberg.island.lifeform.animals.AnimalType;
 import ru.javarush.november.timberg.island.lifeform.animals.herbivores.*;
 import ru.javarush.november.timberg.island.lifeform.animals.predators.*;
+import ru.javarush.november.timberg.island.utils.Randomizer;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 import static ru.javarush.november.timberg.island.board.BoardSetting.*;
 
 public class Cell {
-    public static int getRandom(int from, int to) { return ThreadLocalRandom.current().nextInt(from, to + 1); }
-    public static final Map<AnimalType, Integer> MAX_ANIMAL_POPULATIONS;
-
-    static {
-        Map<AnimalType, Integer> animalTypeIntegerMap = new HashMap<>();
-        animalTypeIntegerMap.put(AnimalType.WOLF, WOLF_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.BEAR, BEAR_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.BOA, BOA_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.EAGLE, EAGLE_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.FOX, FOX_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.BOAR, BOAR_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.BUFFALO, BUFFALO_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.CATERPILLAR, CATERPILLAR_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.DEER, DEER_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.DUCK, DUCK_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.GOAT, GOAT_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.HORSE, HORSE_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.MOUSE, MOUSE_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.RABBIT, RABBIT_MAX_POPULATION);
-        animalTypeIntegerMap.put(AnimalType.SHEEP, SHEEP_MAX_POPULATION);
-        MAX_ANIMAL_POPULATIONS = new HashMap<>(animalTypeIntegerMap);
-    }
 
     private final List<Animal> animals = new CopyOnWriteArrayList<>();
     private final List<Plant> plants = new CopyOnWriteArrayList<>();
@@ -68,7 +45,7 @@ public class Cell {
         var random = new Random();
 
         for (var animalType : AnimalType.values()) {
-            var maxAnimalPopulation = MAX_ANIMAL_POPULATIONS.get(animalType);
+            var maxAnimalPopulation = (createAnimal(animalType).getMaxPopulation());
             var animalCount = random.nextInt(maxAnimalPopulation);
 
             Stream.generate(() -> Cell.createAnimal(animalType))
@@ -103,12 +80,10 @@ public class Cell {
     }
 
     public void grassGrowth(Cell cell) {
-        AtomicInteger count = new AtomicInteger(cell.getPlants().size());
-        AtomicInteger i = new AtomicInteger(0);
+        int count = 0;
 
-
-        if (count.get() < PLANTS_MAX_POPULATION) {
-            for (i.get(); i.get() < (getRandom(0, (PLANTS_MAX_POPULATION - count.get()))); i.getAndIncrement()) {
+        if (count < PLANTS_MAX_POPULATION) {
+            for (int i = 0; i < (Randomizer.getRandom(0, (PLANTS_MAX_POPULATION - count))); i++) {
                 cell.getPlants().add(new Plant());
             }
         }

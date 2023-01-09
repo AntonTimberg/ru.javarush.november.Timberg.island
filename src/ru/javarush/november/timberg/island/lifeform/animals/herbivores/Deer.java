@@ -40,4 +40,9 @@ public class Deer extends Animal {
     public int getMaxSpeed() {
         return DEER_MAX_SPEED;
     }
+
+    @Override
+    public int getMaxPopulation() {
+        return DEER_MAX_POPULATION;
+    }
 }

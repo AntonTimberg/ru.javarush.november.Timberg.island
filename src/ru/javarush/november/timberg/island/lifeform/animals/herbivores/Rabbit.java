@@ -6,10 +6,7 @@ import ru.javarush.november.timberg.island.lifeform.animals.AnimalType;
 
 import java.util.Map;
 
-import static ru.javarush.november.timberg.island.board.BoardSetting.RABBIT_MAX_SPEED;
-import static ru.javarush.november.timberg.island.board.BoardSetting.RABBIT_SATIETY;
-import static ru.javarush.november.timberg.island.board.BoardSetting.RABBIT_UNICODE;
-import static ru.javarush.november.timberg.island.board.BoardSetting.RABBIT_MAX_WEIGHT;
+import static ru.javarush.november.timberg.island.board.BoardSetting.*;
 
 public class Rabbit extends Animal {
 
@@ -19,6 +16,11 @@ public class Rabbit extends Animal {
 
     public double getMaxWeight() {
         return RABBIT_MAX_WEIGHT;
+    }
+
+    @Override
+    public int getMaxPopulation() {
+        return RABBIT_MAX_POPULATION;
     }
 
     public int getMaxSpeed() {

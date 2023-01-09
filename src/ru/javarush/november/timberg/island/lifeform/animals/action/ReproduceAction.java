@@ -6,7 +6,6 @@ import ru.javarush.november.timberg.island.lifeform.animals.Animal;
 import ru.javarush.november.timberg.island.lifeform.animals.behavior.CanReproduce;
 import ru.javarush.november.timberg.island.utils.Randomizer;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 
@@ -28,13 +27,12 @@ public class ReproduceAction implements Action{
                             && organism.getClass().equals(targetAnimal.getClass()))
                     .collect(Collectors.toList());
 
-            AtomicInteger count =
-                    new AtomicInteger(Cell.MAX_ANIMAL_POPULATIONS.get(targetAnimal.getAnimalType()) - 1);
-            if (partners.size() < count.get()){
-                AtomicInteger i = new AtomicInteger(0);
-                for (i.get(); i.get() < (count.get() - partners.size()); i.getAndIncrement()) {
+            int count = targetAnimal.getMaxPopulation() - 1;
+
+            if (partners.size() < count){
+                for (int i = 0; i < (count - partners.size()); i++) {
                     currentCell.add(Cell.createAnimal(targetAnimal.getAnimalType()));
-                    count.getAndDecrement();
+                    count++;
                 }
             }
         }

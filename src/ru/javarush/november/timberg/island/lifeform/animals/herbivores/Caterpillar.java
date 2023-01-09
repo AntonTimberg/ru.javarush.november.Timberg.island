@@ -40,4 +40,9 @@ public class Caterpillar extends Animal {
     public int getMaxSpeed() {
         return CATERPILLAR_MAX_SPEED;
     }
+
+    @Override
+    public int getMaxPopulation() {
+        return CATERPILLAR_MAX_POPULATION;
+    }
 }

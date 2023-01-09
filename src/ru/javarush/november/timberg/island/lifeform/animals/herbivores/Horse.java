@@ -22,6 +22,11 @@ public class Horse extends Animal {
     }
 
     @Override
+    public int getMaxPopulation() {
+        return HORSE_MAX_POPULATION;
+    }
+
+    @Override
     public String getUnicode() {
         return HORSE_UNICODE;
     }

@@ -25,6 +25,11 @@ public class Fox extends Animal {
     }
 
     @Override
+    public int getMaxPopulation() {
+        return FOX_MAX_POPULATION;
+    }
+
+    @Override
     public String getUnicode() {
         return FOX_UNICODE;
     }

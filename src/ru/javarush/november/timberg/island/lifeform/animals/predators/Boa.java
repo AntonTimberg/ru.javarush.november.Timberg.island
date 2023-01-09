@@ -2,7 +2,6 @@ package ru.javarush.november.timberg.island.lifeform.animals.predators;
 
 import ru.javarush.november.timberg.island.lifeform.animals.Animal;
 import ru.javarush.november.timberg.island.lifeform.animals.AnimalType;
-import ru.javarush.november.timberg.island.lifeform.animals.behavior.CanMove;
 import ru.javarush.november.timberg.island.lifeform.animals.herbivores.Duck;
 import ru.javarush.november.timberg.island.lifeform.animals.herbivores.Mouse;
 import ru.javarush.november.timberg.island.lifeform.animals.herbivores.Rabbit;
@@ -11,7 +10,7 @@ import java.util.Map;
 
 import static ru.javarush.november.timberg.island.board.BoardSetting.*;
 
-public class Boa extends Animal implements CanMove {
+public class Boa extends Animal {
 
     {
         probabilities = Map.of(
@@ -21,6 +20,11 @@ public class Boa extends Animal implements CanMove {
     @Override
     public double getMaxWeight() {
         return BOA_WEIGHT;
+    }
+
+    @Override
+    public int getMaxPopulation() {
+        return BOA_MAX_POPULATION;
     }
 
     @Override
