@@ -20,7 +20,7 @@ public class ReproduceAction implements Action{
 
     @Override
     public void run() {
-        var random = Randomizer.getRandom(1,4);
+        var random = Randomizer.getRandom(1,3);
         if (random == 1){
             var partners = currentCell.getOrganisms().stream()
                     .filter(organism -> organism.getState() != State.DEAD && !organism.equals(targetAnimal)
@@ -32,7 +32,7 @@ public class ReproduceAction implements Action{
             if (partners.size() < count){
                 for (int i = 0; i < (count - partners.size()); i++) {
                     currentCell.add(Cell.createAnimal(targetAnimal.getAnimalType()));
-                    count++;
+                    count--;
                 }
             }
         }

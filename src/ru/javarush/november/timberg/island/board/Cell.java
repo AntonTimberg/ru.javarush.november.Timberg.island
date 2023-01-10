@@ -45,7 +45,7 @@ public class Cell {
         var random = new Random();
 
         for (var animalType : AnimalType.values()) {
-            var maxAnimalPopulation = (createAnimal(animalType).getMaxPopulation());
+            var maxAnimalPopulation = (int)(createAnimal(animalType).getMaxPopulation() * POPULATION_RATE);
             var animalCount = random.nextInt(maxAnimalPopulation);
 
             Stream.generate(() -> Cell.createAnimal(animalType))
@@ -80,7 +80,7 @@ public class Cell {
     }
 
     public void grassGrowth(Cell cell) {
-        int count = 0;
+        int count = cell.getPlants().size();
 
         if (count < PLANTS_MAX_POPULATION) {
             for (int i = 0; i < (Randomizer.getRandom(0, (PLANTS_MAX_POPULATION - count))); i++) {

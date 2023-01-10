@@ -16,16 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static ru.javarush.november.timberg.island.board.BoardSetting.MINIMUM_WEIGHT_INDEX;
-import static ru.javarush.november.timberg.island.board.BoardSetting.WEIGHT_CHANGE_INDEX;
+import static ru.javarush.november.timberg.island.board.BoardSetting.*;
 
 public abstract class Animal implements Organism, CanEat, CanMove, CanReproduce {
     protected double currentWeight = (double) Math.round((Math.random()
             * (getMaxWeight() - (getMaxWeight() * MINIMUM_WEIGHT_INDEX) + 1)
             + (getMaxWeight() * MINIMUM_WEIGHT_INDEX)) * 100) / 100;
-    protected double satiety = getMaxSatiety() * 0.5;
+    protected double satiety = getMaxSatiety() * START_SATIETY_INDEX;
     protected State state = State.ALIVE;
-    protected Map<Class<? extends Organism>, Double> probabilities;
 
     @Override
     public Action whatDoYouWant(Cell cell) {
@@ -33,7 +31,9 @@ public abstract class Animal implements Organism, CanEat, CanMove, CanReproduce 
             return new EatAction(this, cell);
         }
         var i = Randomizer.getRandom(1 , 2);
-        if (i == 1) return new ReproduceAction(this, cell);
+        if (i == 1 && this.getCurrentWeight() >= WEIGHT_INDEX_REPRODUCTION) {
+            return new ReproduceAction(this, cell);
+        }
         return new MoveAction(this, cell);
     }
 
@@ -61,7 +61,9 @@ public abstract class Animal implements Organism, CanEat, CanMove, CanReproduce 
         return state;
     }
 
-    public double getProbability(Organism victim) {
+    public abstract Map<Class<? extends Organism>, Double> getProbabilityMap();
+
+    public double getProbability(Map<Class<? extends Organism>, Double> probabilities,Organism victim) {
         return probabilities.getOrDefault(victim.getClass(), 0.0D);
     }
 

@@ -1,6 +1,6 @@
 package ru.javarush.november.timberg.island.lifeform.animals.herbivores;
 
-import ru.javarush.november.timberg.island.lifeform.Plant;
+import ru.javarush.november.timberg.island.lifeform.Organism;
 import ru.javarush.november.timberg.island.lifeform.animals.Animal;
 import ru.javarush.november.timberg.island.lifeform.animals.AnimalType;
 
@@ -9,13 +9,6 @@ import java.util.Map;
 import static ru.javarush.november.timberg.island.board.BoardSetting.*;
 
 public class Buffalo extends Animal {
-
-    {
-        probabilities = Map.of(
-                Plant.class, 1D
-                );
-    }
-
     @Override
     public double getMaxWeight() {
         return BUFFALO_WEIGHT;
@@ -29,6 +22,11 @@ public class Buffalo extends Animal {
     @Override
     public AnimalType getAnimalType() {
         return AnimalType.BUFFALO;
+    }
+
+    @Override
+    public Map<Class<? extends Organism>, Double> getProbabilityMap() {
+        return BUFFALO_EATING_PROBABILITIES;
     }
 
     @Override

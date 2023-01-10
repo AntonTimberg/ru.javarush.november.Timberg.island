@@ -26,7 +26,8 @@ public class EatAction implements Action {
                 .filter(organism -> organism.getState() != State.DEAD
                         && !organism.equals(targetAnimal))
                 .filter(organism -> {
-                    var expectedProbability = ((Animal) targetAnimal).getProbability(organism);
+                    var expectedProbability = ((Animal) targetAnimal).
+                            getProbability(((Animal) targetAnimal).getProbabilityMap(),organism);
                     var realProbability = Math.random();
                     return realProbability <= expectedProbability;
                 })
