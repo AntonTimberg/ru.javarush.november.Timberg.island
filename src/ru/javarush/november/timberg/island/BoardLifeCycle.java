@@ -11,6 +11,12 @@ public class BoardLifeCycle {
     public static void main(String[] args) {
         Board board = new Board();
 
+        ScheduledExecutorService showInfo =
+                Executors.newScheduledThreadPool(1);
+
+        showInfo.scheduleAtFixedRate(board::monitor,
+                200, 2000,TimeUnit.MILLISECONDS);
+
         ScheduledExecutorService animalLifeCycleExecutor =
                 Executors.newScheduledThreadPool(1);
 
@@ -21,7 +27,7 @@ public class BoardLifeCycle {
                 Executors.newScheduledThreadPool(1);
 
         plantLifeCycleExecutor.scheduleWithFixedDelay(board::updatePlantsState,
-                400,6000,TimeUnit.MILLISECONDS);
+                1,4,TimeUnit.SECONDS);
 
         ScheduledExecutorService deadOrganismLifeCycleExecutor =
                 Executors.newScheduledThreadPool(1);
@@ -29,10 +35,5 @@ public class BoardLifeCycle {
         deadOrganismLifeCycleExecutor.scheduleAtFixedRate(board::removeDeadOrganism,
                 300,300, TimeUnit.MILLISECONDS);
 
-        ScheduledExecutorService showInfo =
-                Executors.newScheduledThreadPool(1);
-
-        showInfo.scheduleAtFixedRate(board::monitor,
-                200, 1000,TimeUnit.MILLISECONDS);
     }
 }
